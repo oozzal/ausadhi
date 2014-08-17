@@ -1,0 +1,13 @@
+<ion-view title="Pictures">
+  <ion-content class="has-header">
+    <div class="card" ng-show="image_src">
+      <div class="item item-text-wrap">
+        <h2>Here's your image</h2>
+        <p><img src="{{ image_src || 'img/default.png' }}"></p>
+        <button class="button button-calm" ng-click="deletePicture()">Delete</button>
+      </div>
+    </div>
+    <button class="margin-fix button button-calm" ng-click="takePicture()">Take Picture</button>
+  </ion-content>
+</ion-view>
+

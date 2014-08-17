@@ -1,11 +1,6 @@
-// Ionic Starter App
+angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi.factories'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('ausadhi', ['ionic', 'ngCordova'])
-
-.run(function($ionicPlatform) {
+.run(['$ionicPlatform', function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,4 +13,59 @@ angular.module('ausadhi', ['ionic', 'ngCordova'])
       StatusBar.styleDefault();
     }
   });
-})
+}])
+
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+
+  .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/layout.html',
+    controller: 'AppCtrl'
+  })
+
+  .state('app.medicines', {
+    url: '/medicines',
+    views: {
+      'tabs-medicines' :{
+        templateUrl: 'templates/medicines.html',
+        controller: 'MedicinesCtrl'
+      }
+    }
+  })
+
+  .state('app.medicine', {
+    url: '/medicine/:medicineId',
+    views: {
+      'tabs-medicines' :{
+        templateUrl: 'templates/medicine.html',
+        controller: 'MedicineCtrl'
+      }
+    }
+  })
+
+  .state('app.pictures', {
+    url: '/pictures',
+    views: {
+      'tabs-pictures' :{
+        templateUrl: 'templates/pictures.html',
+        controller: 'PicturesCtrl'
+      }
+    }
+  })
+
+  .state('app.about', {
+    url: '/about',
+    views: {
+      'tabs-about' :{
+        templateUrl: 'templates/about.html',
+        controller: 'AboutCtrl'
+      }
+    }
+  })
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/medicines');
+}]);
+

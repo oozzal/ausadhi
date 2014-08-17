@@ -1,0 +1,15 @@
+<ion-view title="{{ medicine.name }}">
+  <ion-content class="has-header">
+    <div class="card">
+      <div class="item item-text-wrap">
+        <h2>{{ medicine.name }} </h2>
+        <img src="{{ medicine.image || 'img/default.png' }}">
+        <h3>What it does:</h3>
+        <p>{{ medicine.description }}</p>
+        <h3>Dosage:</h3>
+        <p>{{ medicine.dosage() }}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+

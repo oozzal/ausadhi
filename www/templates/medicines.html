@@ -1,0 +1,12 @@
+<ion-view title="Medicines">
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item ng-repeat="med in medicines" class="item item-thumbnail-left" type="item-text-wrap" href="#/app/medicine/{{med.id}}">
+        <img src="{{ med.image || 'img/default.png' }}">
+        <h2>{{ med.name }}</h2>
+        <p>{{ med.dosage() }}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+

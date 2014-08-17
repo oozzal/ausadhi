@@ -1,0 +1,7 @@
+[
+  {"id": 1, "name": "Aciloc", "times": 3, "start_at": "6 AM", "description": "Acidity control."},
+  {"id": 2, "name": "Nims", "times": 2, "start_at": "10 AM", "description": "Headache control"},
+  {"id": 3, "name": "Amoxycilin", "times": 1, "start_at": "10 PM", "description": "General antibotic."},
+  {"id": 4, "name": "Honitus", "times": 4, "start_at": "7 AM", "description": "Cough syrup."}
+]
+
