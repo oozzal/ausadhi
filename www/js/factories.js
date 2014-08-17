@@ -12,24 +12,25 @@ angular.module("ausadhi.factories", [])
 
 .factory("Medicine", ["BaseModel", "$http", function(BaseModel, $http) {
 
+  var medicines = [
+    {id: 1, name: "Aciloc", times: 3, start_at: "6 AM", description: "Acidity control."},
+    {id: 2, name: "Nims", times: 2, start_at: "10 AM", description: "Headache control"},
+    {id: 3, name: "Amoxycilin", times: 1, start_at: "10 PM", description: "General antibotic."},
+    {id: 4, name: "Honitus", times: 4, start_at: "7 AM", description: "Cough syrup."}
+  ];
+
   return angular.extend(BaseModel, {
     all: function(callback) {
-      $http.get("/medicines.json")
-      .success(function(resources) {
-        var meds = [];
-        angular.forEach(resources, function(res) {
-          meds.push(BaseModel.build(res));
-        });
-        callback(meds);
+      var meds = [];
+      angular.forEach(medicines, function(med) {
+        meds.push(BaseModel.build(med));
       });
+      callback(meds);
     },
 
     get: function(medicineId, callback) {
-      $http.get("/medicines.json")
-      .success(function(resources) {
-        var med = resources.filter(function(res) { return res.id === parseInt(medicineId) })[0];
-        callback(BaseModel.build(med));
-      });
+      var med = medicines.filter(function(med) { return med.id === parseInt(medicineId) })[0];
+      callback(BaseModel.build(med));
     },
 
     dosage: function() {
