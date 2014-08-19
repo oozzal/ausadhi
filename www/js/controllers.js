@@ -7,6 +7,12 @@ angular.module('ausadhi.controllers', [])
   Medicine.all(function(data) {
     $scope.medicines = data;
   });
+
+  $scope.deleteMed = function(index, $event) {
+    $scope.medicines.splice(index, 1);
+    // $event.stopPropagation();
+    $event.preventDefault();
+  }
 }])
 
 .controller('MedicineCtrl', ['$scope', '$stateParams', 'Medicine', function($scope, $stateParams, Medicine) {
