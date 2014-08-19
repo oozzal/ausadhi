@@ -8,8 +8,8 @@ angular.module('ausadhi.controllers', [])
     $scope.medicines = data;
   });
 
-  $scope.deleteMed = function(index, $event) {
-    $scope.medicines.splice(index, 1);
+  $scope.deleteMed = function($index, $event) {
+    $scope.medicines.splice($index, 1);
     // $event.stopPropagation();
     $event.preventDefault();
   }

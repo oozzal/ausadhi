@@ -5,7 +5,7 @@
         <img src="{{ med.image || 'img/default.png' }}">
         <h2>{{ med.name }}</h2>
         <p>{{ med.dosage() }}</p>
-        <button class="button button-assertive" ng-click="deleteMed(index, $event)">
+        <button class="button button-assertive" ng-click="deleteMed($index, $event)">
           <i class="icon ion-trash-a"></i>
         </button>
       </ion-item>
