@@ -1,6 +1,6 @@
 angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi.factories'])
 
-.run(['$ionicPlatform', function($ionicPlatform) {
+.run(['$ionicPlatform', '$rootScope', function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -14,7 +14,7 @@ angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi
     }
 
     if(window.sqlitePlugin) {
-      var db = window.sqlitePlugin.openDatabase({name: 'ausadhi.db'});
+      $rootScope.db = window.sqlitePlugin.openDatabase({name: 'ausadhi.db'});
       db.transaction(function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS medicines (id INTEGER PRIMARY KEY, name VARCHAR, description TEXT, times INTEGER, start_at VARCHAR)');
       });

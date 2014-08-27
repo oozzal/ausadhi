@@ -20,14 +20,16 @@ angular.module('ausadhi.controllers', [])
   });
 
   $rootScope.addMed = function() {
-    $rootScope.medicines.push(Medicine.build($rootScope.med));
+    var newMed = Medicine.build($rootScope.med);
+    Medicine.add($rootScope.db, newMed);
+    $rootScope.medicines.push(newMed);
     $rootScope.med = {};
     $rootScope.modal.hide();
   }
 }])
 
 .controller('MedicinesCtrl', ['$rootScope', 'Medicine', function($rootScope, Medicine) {
-  Medicine.all(function(data) {
+  Medicine.all($rootScope.db, function(data) {
     $rootScope.medicines = data;
   });
 

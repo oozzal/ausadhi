@@ -20,17 +20,44 @@ angular.module("ausadhi.factories", [])
   ];
 
   return angular.extend(BaseModel, {
-    all: function(callback) {
+    all: function(db, callback) {
       var meds = [];
-      angular.forEach(medicines, function(med) {
-        meds.push(BaseModel.build(med));
-      });
-      callback(meds);
+      if(window.cordova) {
+        db.transaction(function(tx) {
+          tx.executeSql("SELECT * FROM medicines", function(tx, res) {
+            alert("length: " + res.rows.length + ", item: " + res.rows.item(0).name);
+            var total = res.rows.length;
+            for(i = 0; i < total; i++) {
+              var item = res.rows.item(i);
+              meds.push(BaseModel.build(item));
+            }
+            callback(meds);
+          });
+        }, function(e) {
+          alert("Error: " + e.message);
+        });
+      } else {
+        angular.forEach(medicines, function(med) {
+          meds.push(BaseModel.build(med));
+        });
+        callback(meds);
+      }
     },
 
     get: function(medicineId, callback) {
       var med = medicines.filter(function(med) { return med.id === parseInt(medicineId) })[0];
       callback(BaseModel.build(med));
+    },
+
+    add: function(db, med) {
+      if(!window.cordova) return false;
+      db.transaction(function(tx) {
+        tx.executeSql("INSERT INTO medicines(name, description, times, start_at) VALUES(?,?,?,?)", [med.name, med.description, med.times, med.start_at], function() {
+          alert("medicine added: " + med.name);
+        }, function(e) {
+          alert("error adding medicine due to: " + e.message);
+        });
+      });
     },
 
     dosage: function() {
