@@ -16,8 +16,10 @@ angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/medicines');
 
+  $stateProvider
   .state('app', {
     url: '/app',
     abstract: true,
@@ -65,7 +67,5 @@ angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi
     }
   })
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/medicines');
 }]);
 
