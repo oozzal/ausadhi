@@ -15,8 +15,8 @@ angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi
 
     if(window.sqlitePlugin) {
       $rootScope.db = window.sqlitePlugin.openDatabase({name: 'ausadhi.db'});
-      db.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS medicines (id INTEGER PRIMARY KEY, name VARCHAR, description TEXT, times INTEGER, start_at VARCHAR)');
+      $rootScope.db.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS medicines (id INTEGER PRIMARY KEY, name VARCHAR, description TEXT, times INTEGER, start_at VARCHAR)', [], function() {}, function(e) { alert(e.message); });
       });
     }
   });

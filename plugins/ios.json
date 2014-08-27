@@ -5,42 +5,14 @@
     },
     "config_munge": {
         "files": {
-            "config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" onload=\"true\" value=\"CDVStatusBar\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarBackgroundColor\" value=\"#000000\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
             "framework": {
                 "parents": {
+                    "libsqlite3.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
                     "ImageIO.framework": [
                         {
                             "xml": "true",
@@ -72,21 +44,62 @@
                         }
                     ]
                 }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"ios-package\" value=\"SQLitePlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" onload=\"true\" value=\"CDVStatusBar\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarBackgroundColor\" value=\"#000000\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
+                            "count": 1
+                        }
+                    ]
+                }
             }
         }
     },
     "installed_plugins": {
+        "com.brodysoft.sqlitePlugin": {
+            "PACKAGE_NAME": "com.oozzal.ausadhi"
+        },
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.oozzal.ausadhi"
         },
         "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.oozzal.ausadhi"
         },
         "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.oozzal.ausadhi"
+        },
+        "org.apache.cordova.statusbar": {
+            "PACKAGE_NAME": "com.oozzal.ausadhi"
         }
     },
     "dependent_plugins": {}
