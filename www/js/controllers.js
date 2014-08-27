@@ -11,6 +11,10 @@ angular.module('ausadhi.controllers', [])
     $rootScope.modal = modal;
   });
 
+  $rootScope.closeModal = function() {
+    $rootScope.modal.hide();
+  };
+
   $rootScope.$on('$destroy', function() {
     $rootScope.modal.remove();
   });
