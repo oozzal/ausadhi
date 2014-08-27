@@ -1,0 +1,27 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Add Medicine</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Name</span>
+        <input type="text" placeholder="Nims" ng-model="med.name">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Times</span>
+        <input type="text" placeholder="3" ng-model="med.times">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Start At</span>
+        <input type="text" placeholder="6 AM" ng-model="med.start_at">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Description</span>
+        <textarea type="text" placeholder="Headache control" ng-model="med.description"></textarea>
+      </label>
+      <button class="button button-block button-positive activated" ng-click="addMed()">Submit</button>
+    </div>
+  </ion-content>
+</ion-modal-view>
+

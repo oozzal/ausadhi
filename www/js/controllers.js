@@ -1,15 +1,34 @@
 angular.module('ausadhi.controllers', [])
 
 // The base controller
-.controller('AppCtrl', ['$scope', function($scope) {}])
+.controller('AppCtrl', ['$rootScope', '$scope', '$ionicModal', 'Medicine', function($rootScope, $scope, $ionicModal, Medicine) {
+  $rootScope.med = {};
 
-.controller('MedicinesCtrl', ['$scope', 'Medicine', function($scope, Medicine) {
-  Medicine.all(function(data) {
-    $scope.medicines = data;
+  $ionicModal.fromTemplateUrl('templates/add_medicine.html', {
+    scope: $rootScope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $rootScope.modal = modal;
   });
 
-  $scope.deleteMed = function($index, $event) {
-    $scope.medicines.splice($index, 1);
+  $rootScope.$on('$destroy', function() {
+    $rootScope.modal.remove();
+  });
+
+  $rootScope.addMed = function() {
+    $rootScope.medicines.push(Medicine.build($rootScope.med));
+    $rootScope.med = {};
+    $rootScope.modal.hide();
+  }
+}])
+
+.controller('MedicinesCtrl', ['$rootScope', 'Medicine', function($rootScope, Medicine) {
+  Medicine.all(function(data) {
+    $rootScope.medicines = data;
+  });
+
+  $rootScope.deleteMed = function($index, $event) {
+    $rootScope.medicines.splice($index, 1);
     // $event.stopPropagation();
     $event.preventDefault();
   }
