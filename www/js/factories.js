@@ -45,9 +45,22 @@ angular.module("ausadhi.factories", [])
       }
     },
 
-    get: function(medicineId, callback) {
-      var med = medicines.filter(function(med) { return med.id === parseInt(medicineId) })[0];
-      callback(BaseModel.build(med));
+    get: function(db, medicineId, callback) {
+      var med;
+      if(window.cordova) {
+        db.transaction(function(tx) {
+          tx.executeSql("SELECT * FROM medicines WHERE id=?", [medicineId], function(tx, res) {
+            var item = res.rows.item(0);
+            var med = BaseModel.build(item);
+            callback(med);
+          }, function(e) {
+            alert("Error: " + e.message);
+          });
+        });
+      } else {
+        med = medicines.filter(function(med) { return med.id === parseInt(medicineId) })[0];
+        callback(BaseModel.build(med));
+      }
     },
 
     add: function(db, med) {
