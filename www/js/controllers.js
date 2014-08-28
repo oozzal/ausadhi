@@ -41,9 +41,9 @@ angular.module('ausadhi.controllers', [])
   }
 }])
 
-.controller('MedicineCtrl', ['$scope', '$stateParams', 'Medicine', function($scope, $stateParams, Medicine) {
-  Medicine.get($stateParams.medicineId, function(data) {
-    $scope.medicine = data;
+.controller('MedicineCtrl', ['$rootScope', '$stateParams', 'Medicine', function($rootScope, $stateParams, Medicine) {
+  Medicine.get($rootScope.db, $stateParams.medicineId, function(data) {
+    $rootScope.medicine = data;
   });
 }])
 
