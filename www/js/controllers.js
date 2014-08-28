@@ -34,6 +34,7 @@ angular.module('ausadhi.controllers', [])
   });
 
   $rootScope.deleteMed = function($index, $event) {
+    Medicine.destroy($rootScope.db, $rootScope.medicines[$index]);
     $rootScope.medicines.splice($index, 1);
     // $event.stopPropagation();
     $event.preventDefault();

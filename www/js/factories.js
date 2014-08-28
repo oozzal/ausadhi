@@ -24,17 +24,18 @@ angular.module("ausadhi.factories", [])
       var meds = [];
       if(window.cordova) {
         db.transaction(function(tx) {
-          tx.executeSql("SELECT * FROM medicines", function(tx, res) {
-            alert("length: " + res.rows.length + ", item: " + res.rows.item(0).name);
+          tx.executeSql("SELECT * FROM medicines", [], function(tx, res) {
             var total = res.rows.length;
-            for(i = 0; i < total; i++) {
+            var item = res.rows.item(0);
+            for(var i = 0; i < total; i++) {
               var item = res.rows.item(i);
-              meds.push(BaseModel.build(item));
+              var med = BaseModel.build(item);
+              meds.push(med);
             }
             callback(meds);
-          });
-        }, function(e) {
-          alert("Error: " + e.message);
+          }, function(e) {
+            alert("Error: " + e.message);
+          })
         });
       } else {
         angular.forEach(medicines, function(med) {
@@ -52,8 +53,19 @@ angular.module("ausadhi.factories", [])
     add: function(db, med) {
       if(!window.cordova) return false;
       db.transaction(function(tx) {
-        tx.executeSql("INSERT INTO medicines(name, description, times, start_at) VALUES(?,?,?,?)", [med.name, med.description, med.times, med.start_at], function() {
+        tx.executeSql("INSERT INTO medicines(name, description, times, start_at) VALUES(?,?,?,?)", [med.name, med.description, med.times, med.start_at], function(tx, res) {
           alert("medicine added: " + med.name);
+        }, function(e) {
+          alert("error adding medicine due to: " + e.message);
+        });
+      });
+    },
+
+    destroy: function(db, med) {
+      if(!window.cordova) return false;
+      db.transaction(function(tx) {
+        tx.executeSql("DELETE FROM medicines WHERE id=?", [med.id], function(tx, res) {
+          alert("medicine deleted: " + med.name);
         }, function(e) {
           alert("error adding medicine due to: " + e.message);
         });
@@ -65,4 +77,3 @@ angular.module("ausadhi.factories", [])
     }
   });
 }]);
-
