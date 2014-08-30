@@ -11,6 +11,7 @@ angular.module("ausadhi.factories", [])
 }])
 
 .factory("Medicine", ["BaseModel", "$http", function(BaseModel, $http) {
+  var db = null;
 
   var medicines = [
     {id: 1, name: "Aciloc", times: 3, start_at: "6 AM", description: "Acidity control."},
@@ -20,7 +21,14 @@ angular.module("ausadhi.factories", [])
   ];
 
   return angular.extend(BaseModel, {
-    all: function(db, callback) {
+    init: function() {
+      db = window.sqlitePlugin.openDatabase({name: 'ausadhi.db'});
+      db.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS medicines (id INTEGER PRIMARY KEY, name VARCHAR, description TEXT, times INTEGER, start_at VARCHAR)', [], function() {}, function(e) { alert(e.message); });
+      });
+    },
+
+    all: function(callback) {
       var meds = [];
       if(window.cordova) {
         db.transaction(function(tx) {
@@ -45,7 +53,7 @@ angular.module("ausadhi.factories", [])
       }
     },
 
-    get: function(db, medicineId, callback) {
+    get: function(medicineId, callback) {
       var med;
       if(window.cordova) {
         db.transaction(function(tx) {
@@ -62,7 +70,7 @@ angular.module("ausadhi.factories", [])
       }
     },
 
-    add: function(db, med) {
+    add: function(med) {
       if(!window.cordova) return false;
       db.transaction(function(tx) {
         tx.executeSql("INSERT INTO medicines(name, description, times, start_at) VALUES(?,?,?,?)", [med.name, med.description, med.times, med.start_at], function(tx, res) {
@@ -73,7 +81,7 @@ angular.module("ausadhi.factories", [])
       });
     },
 
-    destroy: function(db, med) {
+    destroy: function(med) {
       if(!window.cordova) return false;
       db.transaction(function(tx) {
         tx.executeSql("DELETE FROM medicines WHERE id=?", [med.id], function(tx, res) {
