@@ -21,21 +21,22 @@ angular.module('ausadhi.controllers', [])
 
   $rootScope.addMed = function() {
     var newMed = Medicine.build($rootScope.med);
-    Medicine.add($rootScope.db, newMed);
+    Medicine.add(newMed);
     $rootScope.medicines.push(newMed);
     $rootScope.med = {};
     $rootScope.modal.hide();
   }
 }])
 
-.controller('MedicinesCtrl', ['$rootScope', 'Medicine', function($rootScope, Medicine) {
-  Medicine.all($rootScope.db, function(data) {
-    $rootScope.medicines = data;
+.controller('MedicinesCtrl', ['$scope', 'Medicine', function($scope, Medicine) {
+  $scope.medicines = [];
+  Medicine.all(function(data) {
+    $scope.medicines = data;
   });
 
-  $rootScope.deleteMed = function($index, $event) {
-    Medicine.destroy($rootScope.db, $rootScope.medicines[$index]);
-    $rootScope.medicines.splice($index, 1);
+  $scope.deleteMed = function($index, $event) {
+    Medicine.destroy($scope.medicines[$index]);
+    $scope.medicines.splice($index, 1);
     // $event.stopPropagation();
     $event.preventDefault();
   }
