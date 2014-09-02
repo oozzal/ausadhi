@@ -1,6 +1,6 @@
 angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi.factories'])
 
-.run(['$ionicPlatform', '$rootScope', 'Medicine', function($ionicPlatform, $rootScope, Medicine) {
+.run(['$ionicPlatform', '$rootScope', 'Medicine', '$location', function($ionicPlatform, $rootScope, Medicine, $location) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -16,12 +16,14 @@ angular.module('ausadhi', ['ionic', 'ngCordova', 'ausadhi.controllers', 'ausadhi
     if(window.sqlitePlugin) {
       Medicine.init();
     }
+    $location.path('/app/medicines');
+    $rootScope.$apply();
   });
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/medicines');
+  $urlRouterProvider.otherwise('/app');
 
   $stateProvider
   .state('app', {
