@@ -1,7 +1,7 @@
 angular.module('ausadhi.controllers', [])
 
 // The base controller
-.controller('AppCtrl', ['$rootScope', '$scope', '$ionicModal', 'Medicine', function($rootScope, $scope, $ionicModal, Medicine) {
+.controller('AppCtrl', ['$rootScope', '$ionicModal', 'Medicine', function($rootScope, $ionicModal, Medicine) {
   $rootScope.med = {};
 
   $ionicModal.fromTemplateUrl('templates/add_medicine.html', {
@@ -28,15 +28,16 @@ angular.module('ausadhi.controllers', [])
   }
 }])
 
-.controller('MedicinesCtrl', ['$scope', 'Medicine', function($scope, Medicine) {
-  $scope.medicines = [];
+.controller('MedicinesCtrl', ['$rootScope', 'Medicine', function($rootScope, Medicine) {
+  $rootScope.medicines = [];
   Medicine.all(function(data) {
-    $scope.medicines = data;
+    $rootScope.medicines = data;
+    $rootScope.$apply();
   });
 
-  $scope.deleteMed = function($index, $event) {
-    Medicine.destroy($scope.medicines[$index]);
-    $scope.medicines.splice($index, 1);
+  $rootScope.deleteMed = function($index, $event) {
+    Medicine.destroy($rootScope.medicines[$index]);
+    $rootScope.medicines.splice($index, 1);
     // $event.stopPropagation();
     $event.preventDefault();
   }
@@ -45,6 +46,7 @@ angular.module('ausadhi.controllers', [])
 .controller('MedicineCtrl', ['$scope', '$stateParams', 'Medicine', function($scope, $stateParams, Medicine) {
   Medicine.get($stateParams.medicineId, function(data) {
     $scope.medicine = data;
+    $scope.$apply();
   });
 }])
 
