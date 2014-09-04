@@ -2,7 +2,7 @@ angular.module('ausadhi.controllers', [])
 
 // The base controller
 .controller('AppCtrl', ['$rootScope', '$ionicModal', 'Medicine', function($rootScope, $ionicModal, Medicine) {
-  $rootScope.med = {};
+  $rootScope.medicine = {};
 
   $ionicModal.fromTemplateUrl('templates/add_medicine.html', {
     scope: $rootScope,
@@ -20,10 +20,10 @@ angular.module('ausadhi.controllers', [])
   });
 
   $rootScope.addMed = function() {
-    var newMed = Medicine.build($rootScope.med);
+    var newMed = Medicine.build($rootScope.medicine);
     Medicine.add(newMed);
     $rootScope.medicines.push(newMed);
-    $rootScope.med = {};
+    $rootScope.medicine = {};
     $rootScope.modal.hide();
     window.cordova && $rootScope.$apply();
   }
