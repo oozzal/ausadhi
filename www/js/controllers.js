@@ -25,7 +25,7 @@ angular.module('ausadhi.controllers', [])
     $rootScope.medicines.push(newMed);
     $rootScope.med = {};
     $rootScope.modal.hide();
-    if(window.cordova) $rootScope.$apply();
+    window.cordova && $rootScope.$apply();
   }
 }])
 
@@ -33,7 +33,8 @@ angular.module('ausadhi.controllers', [])
   $rootScope.medicines = [];
   Medicine.all(function(data) {
     $rootScope.medicines = data;
-    if(window.cordova) $rootScope.$apply();
+    // some third party library is messing up
+    window.cordova && $rootScope.$apply();
   });
 
   $rootScope.deleteMed = function($index, $event) {
@@ -47,7 +48,7 @@ angular.module('ausadhi.controllers', [])
 .controller('MedicineCtrl', ['$scope', '$stateParams', 'Medicine', function($scope, $stateParams, Medicine) {
   Medicine.get($stateParams.medicineId, function(data) {
     $scope.medicine = data;
-    if(window.cordova) $scope.$apply();
+    window.cordova && $scope.$apply();
   });
 }])
 
