@@ -32,6 +32,7 @@ angular.module('ausadhi.controllers', [])
   $rootScope.medicines = [];
   Medicine.all(function(data) {
     $rootScope.medicines = data;
+    // some third party library is messing up
     $rootScope.$apply();
   });
 
